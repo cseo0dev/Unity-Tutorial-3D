@@ -243,13 +243,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7255a19bafccc44af90cba7d42e315, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hanoiLevel: 0
+  hanoiLevel: 4
   donutPrefabs:
   - {fileID: 5799551331667526297, guid: a96d560b0dcbe0c42bf6a379f65bd9cc, type: 3}
   - {fileID: 1867748717485411651, guid: b3926ceb854699348b1922bce6e6047c, type: 3}
   - {fileID: 4448217984946789781, guid: d49380ca9b483ca41895e4a5609711e8, type: 3}
   - {fileID: 370307554636864602, guid: d6db23e098c2c8944af9813db24bc2ad, type: 3}
   - {fileID: 4101840611071999125, guid: 6892cc3fd5f2f9346bc1c95881c8fb82, type: 3}
+  bars:
+  - {fileID: 919574374}
+  - {fileID: 869668061}
+  - {fileID: 863626384}
 --- !u!1 &585409311
 GameObject:
   m_ObjectHideFlags: 0
