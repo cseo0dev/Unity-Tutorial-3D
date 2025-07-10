@@ -42,7 +42,8 @@ public class BoardBar : MonoBehaviour
         if (!CheckDonut(donut))
             return;
 
-        HanoiTower.moveCount++;
+        if (HanoiTower.isSelected) // 이 조건이 유저 클릭으로 인한 동작일 때만 true
+            HanoiTower.moveCount++;
         HanoiTower.isSelected = false;
         HanoiTower.selectedDonut = null;
 
