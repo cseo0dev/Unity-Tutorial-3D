@@ -6,6 +6,7 @@ public class FPSPlayerFire : MonoBehaviour
     public GameObject bombFactory;
 
     public float throwPower = 15f;
+    public int weaponPower = 5;
 
     public GameObject bulletEffect;
     private ParticleSystem ps;
@@ -17,6 +18,9 @@ public class FPSPlayerFire : MonoBehaviour
 
     void Update()
     {
+        if (FPSGameManager.Instance.gState != FPSGameManager.GameState.Run)
+            return;
+
         // 총알 발사
         if (Input.GetMouseButtonDown(0))
         {
@@ -29,9 +33,17 @@ public class FPSPlayerFire : MonoBehaviour
             // 레이를 발사한 후 부딪힌 물체가 있는 경우 피격 이펙트 발동
             if (Physics.Raycast(ray, out hitInfo)) // 시작위치, 방향, out hitInfo, 거리
             {
-                bulletEffect.transform.position = hitInfo.point; // 피격 이펙트가 부딪힌 대상의 위치로 이동
-                bulletEffect.transform.forward = hitInfo.normal;
-                ps.Play(); // 피격 이펙트 플레이
+                if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Enemy")) // Enemy 감지
+                {
+                    EnemyFSM eFSM = hitInfo.transform.GetComponent<EnemyFSM>();
+                    eFSM.HitEnemy(weaponPower);
+                }
+                else // Enemy가 아닌 경우 피격 이펙트 플레이
+                {
+                    bulletEffect.transform.position = hitInfo.point; // 피격 이펙트가 부딪힌 대상의 위치로 이동
+                    bulletEffect.transform.forward = hitInfo.normal;
+                    ps.Play(); // 피격 이펙트 플레이
+                }
             }
         }
 
