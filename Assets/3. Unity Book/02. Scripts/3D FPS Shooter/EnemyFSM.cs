@@ -110,7 +110,7 @@ public class EnemyFSM : MonoBehaviour
             if (currentTime > attackDelay)
             {
                 currentTime = 0f;
-                player.GetComponent<FPSPlayerMove>().DamageAction(attackPower);
+                // player.GetComponent<FPSPlayerMove>().DamageAction(attackPower);
                 anim.SetTrigger("StartAttack");
                 Debug.Log("공격!");
             }
@@ -118,9 +118,15 @@ public class EnemyFSM : MonoBehaviour
         else
         {
             currentTime = 0f;
+            anim.SetTrigger("AttackToMove");
             m_State = EnemyState.Move;
             Debug.Log("상태 전환 : Attack -> Move");
         }
+    }
+
+    public void AttackAction()
+    {
+        player.GetComponent<FPSPlayerMove>().DamageAction(attackPower);
     }
 
     private void Return()
@@ -154,12 +160,14 @@ public class EnemyFSM : MonoBehaviour
 
         if (hp > 0)
         {
+            anim.SetTrigger("Damaged");
             m_State = EnemyState.Damaged;
             Debug.Log("상태 전환 : Any State -> Damaged");
             Damaged();
         }
         else
         {
+            anim.SetTrigger("Die");
             m_State = EnemyState.Die;
             Debug.Log("상태 전환 : Any State -> Die");
             Die();
@@ -173,7 +181,7 @@ public class EnemyFSM : MonoBehaviour
 
     IEnumerator DamageProcess()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
 
         m_State = EnemyState.Move;
         Debug.Log("상태 전환 : Damged -> Move");

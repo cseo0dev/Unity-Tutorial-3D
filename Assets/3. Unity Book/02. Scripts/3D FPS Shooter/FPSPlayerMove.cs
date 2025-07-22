@@ -21,9 +21,12 @@ public class FPSPlayerMove : MonoBehaviour
 
     public GameObject hitEffect;
 
+    public Animator anim;
+
     void Start()
     {
         cc = GetComponent<CharacterController>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -35,6 +38,8 @@ public class FPSPlayerMove : MonoBehaviour
         float v = Input.GetAxis("Vertical");
 
         Vector3 dir = new Vector3 (h, 0, v);
+        anim.SetFloat("MoveMotion", dir.magnitude);
+
         dir = dir.normalized;
 
         // 카메라의 Transform 기준으로 변환

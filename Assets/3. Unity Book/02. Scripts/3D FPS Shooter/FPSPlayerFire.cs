@@ -4,15 +4,16 @@ public class FPSPlayerFire : MonoBehaviour
 {
     public GameObject firePosition;
     public GameObject bombFactory;
+    public GameObject bulletEffect;
+    private Animator anim;
+    private ParticleSystem ps;
 
     public float throwPower = 15f;
     public int weaponPower = 5;
 
-    public GameObject bulletEffect;
-    private ParticleSystem ps;
-
     void Start()
     {
+        anim = GetComponentInChildren<Animator>();
         ps = bulletEffect.GetComponent<ParticleSystem>();
     }
 
@@ -24,6 +25,11 @@ public class FPSPlayerFire : MonoBehaviour
         // 총알 발사
         if (Input.GetMouseButtonDown(0))
         {
+            if (anim.GetFloat("MoveMotion") == 0)
+            {
+                anim.SetTrigger("Attack");
+            }
+
             // 레이 생성 후 발사될 위치와 발사 방향 지정
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
 
