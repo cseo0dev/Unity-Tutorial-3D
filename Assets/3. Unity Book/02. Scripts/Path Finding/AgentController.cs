@@ -1,38 +1,64 @@
+//using Unity.AI.Navigation;
+//using UnityEngine;
+//using UnityEngine.AI;
+
+//public class AgentController : MonoBehaviour
+//{
+//    public Camera camera;
+//    private NavMeshAgent agent;
+//    public NavMeshSurface surface;
+
+//    void Start()
+//    {
+//        agent = GetComponent<NavMeshAgent>();
+//        surface.transform.position = agent.transform.position;
+//        surface.BuildNavMesh();
+//    } 
+
+//    void Update()
+//    {
+//        if (Input.GetMouseButtonDown(0))
+//        {
+//            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+//            RaycastHit hit;
+
+//            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+//            {
+//                agent.SetDestination(hit.point);
+//            }
+//        }
+
+//        if (Vector3.Distance(transform.position, surface.transform.position) > 20f)
+//        {
+//            surface.transform.position = agent.transform.position;
+//            surface.BuildNavMesh();
+//        }
+//    }
+//}
 using UnityEngine;
 using UnityEngine.AI;
 
 public class AgentController : MonoBehaviour
 {
-    private Transform player;
     private NavMeshAgent agent;
-
     public Transform[] points;
-    public int index;
+    private int index;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        SetRandomPoint();
+        agent.SetDestination(points[index].position);
     }
 
     void Update()
     {
-        if (agent.remainingDistance <= 1.5f)
+        if (Vector3.Distance(transform.position, points[index].position) < 3.5f)
         {
-            Debug.Log("목적지 변경");
-            SetRandomPoint();
+            index++;
+            if (index >= points.Length)
+                index = 0;
+
+            agent.SetDestination(points[index].position);
         }
-    }
-
-    private void SetRandomPoint()
-    {
-        int temp = index;
-
-        while (temp == index)
-        {
-            index = Random.Range(0, points.Length);
-        }
-
-        agent.SetDestination(points[index].position);
     }
 }
