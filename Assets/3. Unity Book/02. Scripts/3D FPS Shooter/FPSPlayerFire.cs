@@ -29,6 +29,7 @@ public class FPSPlayerFire : MonoBehaviour
 
     public GameObject crosshair01;
     public GameObject crosshair02;
+    public GameObject crosshair02_zoom;
 
     void Start()
     {
@@ -93,20 +94,13 @@ public class FPSPlayerFire : MonoBehaviour
                 
                 // 스나이퍼 모드 - 스나이퍼 줌 In/Out
                 case WeaponMode.Sniper:
-                    //if (!ZoomMode)
-                    //{
-                    //    Camera.main.fieldOfView = 15f;
-                    //    ZoomMode = true;
-                    //}
-                    //else
-                    //{
-                    //    Camera.main.fieldOfView = 60f;
-                    //    ZoomMode = false;
-                    //}
-                    float fov = ZoomMode ? 60f : 15f;
+                    ZoomMode = !ZoomMode; // 현재 줌 모드 상태 변경
+
+                    float fov = ZoomMode ? 15f : 60f;
                     Camera.main.fieldOfView = fov;
-                    ZoomMode = !ZoomMode;
-                    
+
+                    crosshair02_zoom.SetActive(ZoomMode);
+                    crosshair02.SetActive(!ZoomMode);
                     break;
             }
         }
