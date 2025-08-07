@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e87173639253614cabfa83395bdd2da, type: 3}
+  m_Name: WeaponDataGroup
+  m_EditorClassIdentifier: 
+  wData:
+  - name: Sword
+    damageSystem:
+      minDamage: 5
+      maxDamage: 15
+      successPercent: 90
+      criticalChance: 15
+    range: 2
+    detailData:
+      cost: 100
+      upgradeLevel: 1
+  - name: Hammer
+    damageSystem:
+      minDamage: 0
+      maxDamage: 0
+      successPercent: 0
+      criticalChance: 0
+    range: 4
+    detailData:
+      cost: 0
+      upgradeLevel: 0
+  - name: Spear
+    damageSystem:
+      minDamage: 0
+      maxDamage: 0
+      successPercent: 0
+      criticalChance: 0
+    range: 6
+    detailData:
+      cost: 0
+      upgradeLevel: 0
+  - name: TwoHandSpear
+    damageSystem:
+      minDamage: 0
+      maxDamage: 0
+      successPercent: 0
+      criticalChance: 0
+    range: 8
+    detailData:
+      cost: 0
+      upgradeLevel: 0
