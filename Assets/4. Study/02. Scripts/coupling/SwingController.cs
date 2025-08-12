@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SwingController : MonoBehaviour
 {
-    public GameManager gameManager;
+    public GameManagerStudy gameManager;
 
     private Animator anim;
 
