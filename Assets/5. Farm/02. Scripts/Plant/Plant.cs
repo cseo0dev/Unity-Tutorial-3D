@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Playables;
 
 public class Plant : MonoBehaviour
 {
@@ -10,7 +9,8 @@ public class Plant : MonoBehaviour
 
     private DateTime startTime, growhTime, harvestTime;
 
-    private bool isHarvest = false;
+    public int plantIndex;
+    public bool isHarvest = false;
 
     void Awake()
     {
@@ -37,11 +37,6 @@ public class Plant : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        
-    }
-
     private void SetState(PlantState newState)
     {
         if (plantState != newState || plantState == PlantState.Level1)
@@ -52,6 +47,22 @@ public class Plant : MonoBehaviour
                 transform.GetChild(i).gameObject.SetActive(false);
 
             transform.GetChild((int)plantState).gameObject.SetActive(true); // 특정 레벨 프리팹만 활성화
+        }
+    }
+
+    private void SetGrowth(WeatherType weatherType)
+    {
+        switch (weatherType)
+        {
+            case WeatherType.Sun:
+                // 성장 최대
+                break;
+            case WeatherType.Rain:
+                // 성장 중간
+                break;
+            case WeatherType.Snow:
+                // 성장 최소
+                break;
         }
     }
 }

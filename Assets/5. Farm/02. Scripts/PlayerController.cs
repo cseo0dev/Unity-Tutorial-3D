@@ -17,6 +17,9 @@ namespace Farm
         private float runSpeed = 5f;
         private float turnSpeed = 10f;
 
+        private Vector3 velocity;
+        private const float GRVITY = -9.8f; // ม฿ทย
+
         void Start()
         {
             anim = GetComponent<Animator>();
@@ -25,7 +28,10 @@ namespace Farm
 
         void Update()
         {
-            cc.Move(moveInput * currentSpeed * Time.deltaTime);
+            velocity.y += GRVITY;
+            var dir = moveInput * currentSpeed + Vector3.up * velocity.y;
+
+            cc.Move(dir * Time.deltaTime);
             Turn();
             SetAnimation();
         }

@@ -8,6 +8,7 @@ public class FleidEvent : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameManager.Instance.SetCameraState(CameraState.Field);
+            GameManager.Instance.ui.ActivateFieldUI(true);
         }
     }
 
@@ -16,6 +17,7 @@ public class FleidEvent : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameManager.Instance.SetCameraState(CameraState.Outside);
+            GameManager.Instance.ui.ActivateFieldUI(false);
         }
     }
 }

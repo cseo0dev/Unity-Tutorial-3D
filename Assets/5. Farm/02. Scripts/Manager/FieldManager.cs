@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class FieldManager : MonoBehaviour
@@ -9,10 +10,13 @@ public class FieldManager : MonoBehaviour
     [SerializeField] private Vector2 fieldSize = new Vector2(6, 8);
     [SerializeField] private float tileSize = 2f;
 
-    public GameObject plantPrefab;
+    [SerializeField] private int currentPlantIndex;
+    [SerializeField] private GameObject[] plants;
+    [SerializeField] private GameObject[] crops;
 
     private GameObject[,] tileArray;
     private Camera mainCamera;
+
     [SerializeField] private LayerMask fieldLayerMask;
 
     void Awake()
@@ -77,8 +81,10 @@ public class FieldManager : MonoBehaviour
 
                 if (tileArray[tileX, tileY] == null)
                 {
-                    GameObject plant = Instantiate(plantPrefab, transform.GetChild(1));
+                    GameObject plant = Instantiate(plants[currentPlantIndex], transform.GetChild(1));
                     plant.transform.position = hit.transform.position;
+
+                    plant.GetComponent<Plant>().plantIndex = currentPlantIndex;
 
                     tileArray[tileX, tileY] = plant;
                 }
@@ -88,6 +94,65 @@ public class FieldManager : MonoBehaviour
 
     private void OnHarvest()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
+            if (Physics.Raycast(ray, out hit, 100f, fieldLayerMask))
+            {
+                Tile tile = hit.collider.GetComponent<Tile>();
+                int tileX = tile.arrayPos.x;
+                int tileY = tile.arrayPos.y;
+
+                if (tileArray[tileX, tileY] != null)
+                {
+                    Plant plant = tileArray[tileX, tileY].GetComponent<Plant>();
+
+                    if (plant.isHarvest)
+                    {
+                        tileArray[tileX, tileY].SetActive(false);
+                        tileArray[tileX, tileY] = null;
+
+                        StartCoroutine(HarvestRoutine(plant.plantIndex, hit.transform.position));
+                    }
+                }
+            }
+        }
+    }
+
+    IEnumerator HarvestRoutine(int index, Vector3 pos)
+    {
+        int renAmount = Random.Range(1, 4);
+
+        for (int i = 0; i < renAmount; i++)
+        {
+            GameObject crop = Instantiate(crops[index], transform.GetChild(2));
+            crop.transform.position = pos + Vector3.up * 0.5f;
+            Rigidbody cropRb = crop.GetComponent<Rigidbody>();
+
+            float ranX = Random.Range(-2f, 2f);
+            float ranZ = Random.Range(-2f, 2f);
+            var forceDir = new Vector3(ranX, 5f, ranZ);
+
+            cropRb.AddForce(forceDir, ForceMode.Impulse);
+
+            yield return new WaitForSeconds(0.15f);
+        }
+
+        yield return null;
+    }
+
+    public void SetPlant(int index)
+    {
+        currentPlantIndex = index;
+    }
+
+    public void SetState(FieldState newState)
+    {
+        if (fieldState != newState)
+        {
+            fieldState = newState;
+        }
     }
 }
