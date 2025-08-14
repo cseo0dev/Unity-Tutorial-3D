@@ -6,14 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/3. Unity Book/01. Scenes/3D FPS/LoginScene.unity
-    guid: 01e17fdf832119e4a8256c482e3cbf16
+    path: Assets/5. Farm/01. Scenes/1. Intro.unity
+    guid: 456691b57758d3647974be3478ced42f
   - enabled: 1
-    path: Assets/3. Unity Book/01. Scenes/3D FPS/LoadingScene.unity
-    guid: 0f3035459999ed14b84b955c26830d04
+    path: Assets/5. Farm/01. Scenes/2. Character.unity
+    guid: 8e416a4bfbdb6414ab64bd499b443265
   - enabled: 1
-    path: Assets/3. Unity Book/01. Scenes/3D FPS/MainScene.unity
-    guid: 3799c2792ffe60c4c8a68f20bd691deb
+    path: Assets/5. Farm/01. Scenes/3. Main.unity
+    guid: 1205e4314b0c58842a7e24368b3fd64a
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2b542527ddc14074183a1f06af5240b2, type: 3}
   m_UseUCBPForAssetBundles: 0
